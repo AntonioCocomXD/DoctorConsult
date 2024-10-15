@@ -1,4 +1,7 @@
 import 'package:consult_doctor/auth/login.dart';
+import 'package:consult_doctor/consultDoctor/citas/citas.dart';
+import 'package:consult_doctor/consultDoctor/doctores/doctores.dart';
+import 'package:consult_doctor/consultDoctor/perfil/perfil.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,28 +13,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+  String ubicacion = 'Doctores';
+
+  // Manejador de cambio de índice en el BottomNavigationBar
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (index == 0) {
+        ubicacion = 'Doctores';
+      } else if (index == 1) {
+        ubicacion = 'Citas';
+      } else {
+        ubicacion = 'Perfil';
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Inicio', style: TextStyle(color: Colors.white)),
+        title: Text(ubicacion, style: const TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
         actions: [
           PopupMenuButton(
             itemBuilder: (BuildContext context) {
               return [
-                PopupMenuItem(
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Row(
-                      children: [
-                        Icon(Icons.person),
-                        SizedBox(width: 10),
-                        Text('Perfil'),
-                      ],
-                    ),
-                  ),
-                ),
                 PopupMenuItem(
                   child: TextButton(
                     onPressed: () {},
@@ -95,8 +103,32 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: const Center(
-        child: Text('Home Page'),
+      body: Center(
+        child: _selectedIndex == 0
+            ? const Doctor()
+            : _selectedIndex == 1
+                ? const Citas()
+                : const Perfil(),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_hospital),
+            label: 'Doctores',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Citas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
       ),
     );
   }

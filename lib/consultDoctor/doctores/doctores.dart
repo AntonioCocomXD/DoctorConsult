@@ -10,7 +10,7 @@ class Doctor extends StatefulWidget {
 }
 
 class _DoctorState extends State<Doctor> {
-  late Future<List<DoctorDto>> _dataDoctor;
+  late Future<List<DoctorDtoOther>> _dataDoctor;
 
   @override
   void initState() {
@@ -21,7 +21,7 @@ class _DoctorState extends State<Doctor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<DoctorDto>>(
+      body: FutureBuilder<List<DoctorDtoOther>>(
         future: _dataDoctor,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -31,7 +31,7 @@ class _DoctorState extends State<Doctor> {
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('No hay doctores disponibles.'));
           } else {
-            List<DoctorDto> doctors = snapshot.data!;
+            List<DoctorDtoOther> doctors = snapshot.data!;
             return ListView.builder(
               itemCount: doctors.length,
               itemBuilder: (context, index) {
@@ -44,7 +44,7 @@ class _DoctorState extends State<Doctor> {
     );
   }
 
-  Widget _buildDoctorCard(DoctorDto doctor, BuildContext context) {
+  Widget _buildDoctorCard(DoctorDtoOther doctor, BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 4,
@@ -77,7 +77,7 @@ class _DoctorState extends State<Doctor> {
     );
   }
 
-  Widget _buildDoctorAvatar(DoctorDto doctor) {
+  Widget _buildDoctorAvatar(DoctorDtoOther doctor) {
     return CircleAvatar(
       radius: 30,
       backgroundColor: Colors.grey[200],

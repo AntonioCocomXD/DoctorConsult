@@ -1,5 +1,8 @@
 import 'package:consult_doctor/auth/login.dart';
+import 'package:consult_doctor/consultDoctor/acerca/acercaDe.dart';
 import 'package:consult_doctor/consultDoctor/citas/citas.dart';
+import 'package:consult_doctor/consultDoctor/config/config.dart';
+import 'package:consult_doctor/consultDoctor/contacto/contacto.dart';
 import 'package:consult_doctor/consultDoctor/doctores/doctores.dart';
 import 'package:consult_doctor/consultDoctor/perfil/perfil.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +19,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   String ubicacion = 'Doctores';
 
-  // Manejador de cambio de índice en el BottomNavigationBar
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -42,36 +44,42 @@ class _MyHomePageState extends State<MyHomePage> {
               return [
                 PopupMenuItem(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Config()));
+                    },
                     child: const Row(
                       children: [
-                        Icon(Icons.settings),
+                        Icon(Icons.settings, color: Colors.blue,),
                         SizedBox(width: 10),
-                        Text('Configuración'),
+                        Text('Configuración', style: TextStyle( color: Colors.blue),),
                       ],
                     ),
                   ),
                 ),
                 PopupMenuItem(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const AcercaDe()));
+                    },
                     child: const Row(
                       children: [
-                        Icon(Icons.info),
+                        Icon(Icons.info, color: Colors.blue,),
                         SizedBox(width: 10),
-                        Text('Acerca de'),
+                        Text('Acerca de', style: TextStyle( color: Colors.blue),),
                       ],
                     ),
                   ),
                 ),
                 PopupMenuItem(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Contacto()));
+                    },
                     child: const Row(
                       children: [
-                        Icon(Icons.contact_mail),
+                        Icon(Icons.contact_mail, color: Colors.blue,),
                         SizedBox(width: 10),
-                        Text('Contacto'),
+                        Text('Contacto', style: TextStyle( color: Colors.blue),),
                       ],
                     ),
                   ),
@@ -90,9 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     child: const Row(
                       children: [
-                        Icon(Icons.logout),
+                        Icon(Icons.logout, color: Colors.blue,),
                         SizedBox(width: 10),
-                        Text('Cerrar sesión'),
+                        Text('Cerrar sesión', style: TextStyle( color: Colors.blue),),
                       ],
                     ),
                   ),

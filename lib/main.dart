@@ -1,5 +1,6 @@
 import 'package:consult_doctor/auth/login.dart';
 import 'package:consult_doctor/consultDoctor/home/home.dart';
+import 'package:consult_doctor/data/service/services.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,10 +22,12 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _checkLoginStatus();
+    getUserData();
   }
 
   Future<void> _checkLoginStatus() async {
     final provider = await SharedPreferences.getInstance();
+    getUserData();
     if (provider.getString('email') != null) {
       setState(() {
         _isLogged = true;

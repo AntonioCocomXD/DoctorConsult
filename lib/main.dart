@@ -1,42 +1,19 @@
 import 'package:consult_doctor/auth/login.dart';
 import 'package:consult_doctor/consultDoctor/home/home.dart';
-import 'package:consult_doctor/data/service/services.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool _isLogged = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkLoginStatus();
-    getUserData();
-  }
-
-  Future<void> _checkLoginStatus() async {
+  Future<bool> _checkLoginStatus() async {
     final provider = await SharedPreferences.getInstance();
-    getUserData();
-    if (provider.getString('email') != null) {
-      setState(() {
-        _isLogged = true;
-      });
-    } else {
-      setState(() {
-        _isLogged = false;
-      });
-    }
+    return provider.getString('email') != null;
   }
 
   @override
@@ -47,7 +24,19 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: _isLogged ? const MyHomePage() : const LoginPage(),
+      home: FutureBuilder<bool>(
+        future: _checkLoginStatus(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return const Center(child: Text("Error al verificar estado de sesión"));
+          }
+          return snapshot.data == true ? const MyHomePage() : const LoginPage();
+        },
+      ),
     );
   }
 }
+

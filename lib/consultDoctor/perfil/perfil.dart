@@ -1,3 +1,4 @@
+import 'package:consult_doctor/consultDoctor/perfil/edit.dart';
 import 'package:consult_doctor/data/dto/dto.dart';
 import 'package:consult_doctor/data/service/services.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +131,11 @@ class _PerfilState extends State<Perfil> {
 
   Widget _buildEditProfileButton() {
     return ElevatedButton.icon( 
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(context, 
+          MaterialPageRoute(builder: (context) => EditPregileScreen())
+        );
+      },
       icon: const Icon(Icons.edit, color: Colors.blue,),
       label: const Text('Editar Perfil', style: TextStyle(color: Colors.blue),),
       style: ElevatedButton.styleFrom(

@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<List<DoctorDtoOther>> getDoctorData() async {
   final response = await http.get(
-    Uri.parse("http://localhost:3000/consultDoctor/api/doctores"),
+    Uri.parse("http://192.168.1.78:3000/consultDoctor/api/doctores"),
     headers: {'Content-Type': 'application/json'},
   );
   final List<DoctorDtoOther> doctores = [];
@@ -34,7 +34,7 @@ Future<List<DoctorDtoOther>> getDoctorData() async {
 Future<List<UserDto>> getUserData() async {
   final provider = await SharedPreferences.getInstance();
   final response = await http.get(
-    Uri.parse("http://localhost:3000/consultDoctor/api/usuarios"),
+    Uri.parse("http://192.168.1.78:3000/consultDoctor/api/usuarios"),
     headers: {'Content-Type': 'application/json'},
   );
   final List<UserDto> usuarios = [];
@@ -62,3 +62,27 @@ Future<List<UserDto>> getUserData() async {
 }
 
 
+Future<DoctorDtoOther> getOneDoctorData(int id) async {
+  final response = await http.get(
+    Uri.parse("http://192.168.1.78:3000/consultDoctor/api/doctores/$id"),
+    headers: {'Content-Type': 'application/json'},
+  );
+  final List<DoctorDtoOther> doctores = [];
+
+  if (response.statusCode == 200) {
+    String body = utf8.decode(response.bodyBytes);
+    final jsonData = jsonDecode(body);
+
+    doctores.add(DoctorDtoOther(
+      id: jsonData['id'],
+      nombre: jsonData['nombre'],
+      especialidad: jsonData['especialidad'],
+      horario_trabajo: jsonData['horario_trabajo'],
+      telefono: jsonData['telefono'],
+      photo: jsonData['foto'],
+    ));
+    return doctores[0];
+  } else {
+    throw Exception('Error al recuperar los elementos del carrito');
+  }
+}

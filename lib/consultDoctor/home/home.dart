@@ -1,4 +1,5 @@
 import 'package:consult_doctor/auth/login.dart';
+import 'package:consult_doctor/consultDoctor/Admin/Home/home.dart';
 import 'package:consult_doctor/consultDoctor/acerca/acercaDe.dart';
 import 'package:consult_doctor/consultDoctor/citas/citas.dart';
 import 'package:consult_doctor/consultDoctor/config/config.dart';
@@ -84,6 +85,35 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
+                PopupMenuItem(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Contacto()));
+                    },
+                    child: const Row(
+                      children: [
+                        Icon(Icons.accessibility_new_sharp, color: Colors.blue,),
+                        SizedBox(width: 10),
+                        Text('Doctor Ajustes', style: TextStyle( color: Colors.blue),),
+                      ],
+                    ),
+                  ),
+                ),
+                PopupMenuItem(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeAdmin()));
+                    },
+                    child: const Row(
+                      children: [
+                        Icon(Icons.admin_panel_settings, color: Colors.blue,),
+                        SizedBox(width: 10),
+                        Text('Admin', style: TextStyle( color: Colors.blue),),
+                      ],
+                    ),
+                  ),
+                ),
+
                 PopupMenuItem(
                   child: TextButton(
                     onPressed: () async {

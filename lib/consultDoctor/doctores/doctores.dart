@@ -1,3 +1,4 @@
+import 'package:consult_doctor/consultDoctor/doctores/viewDoctor.dart';
 import 'package:flutter/material.dart';
 import 'package:consult_doctor/data/dto/dto.dart';
 import 'package:consult_doctor/data/service/services.dart';
@@ -45,33 +46,43 @@ class _DoctorState extends State<Doctor> {
   }
 
   Widget _buildDoctorCard(DoctorDtoOther doctor, BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 4,
-      color: Colors.grey[100],
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            _buildDoctorAvatar(doctor),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    doctor.nombre,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 4),
-                  _buildInfoRow(Icons.medical_services, doctor.especialidad, Colors.blue),
-                  _buildInfoRow(Icons.access_time, doctor.horario_trabajo, Colors.blue),
-                  _buildInfoRow(Icons.phone, doctor.telefono, Colors.blue),
-                ],
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ViewDoctor(idDoctor: doctor.id),
+          ),
+        );
+      },
+      child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        elevation: 4,
+        color: Colors.grey[100],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              _buildDoctorAvatar(doctor),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      doctor.nombre,
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 4),
+                    _buildInfoRow(Icons.medical_services, doctor.especialidad, Colors.blue),
+                    _buildInfoRow(Icons.access_time, doctor.horario_trabajo, Colors.blue),
+                    _buildInfoRow(Icons.phone, doctor.telefono, Colors.blue),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

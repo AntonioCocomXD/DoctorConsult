@@ -1,3 +1,4 @@
+import 'package:consult_doctor/consultDoctor/doctores/appointmentBookingForm.dart';
 import 'package:consult_doctor/consultDoctor/doctores/medicalChatApp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -41,12 +42,14 @@ class _ViewDoctorState extends State<ViewDoctor> {
   void _addReview() {
     if (_commentController.text.isNotEmpty) {
       setState(() {
-        _reviews.insert(0, DoctorReview(
-          name: "Paciente Anónimo",
-          rating: 4.0,
-          comment: _commentController.text,
-          date: "Hace un momento",
-        ));
+        _reviews.insert(
+            0,
+            DoctorReview(
+              name: "Paciente Anónimo",
+              rating: 4.0,
+              comment: _commentController.text,
+              date: "Hace un momento",
+            ));
         _commentController.clear();
       });
     }
@@ -58,12 +61,14 @@ class _ViewDoctorState extends State<ViewDoctor> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.blue.shade600,
-        title: const Text('Perfil del Doctor', style: TextStyle(color: Colors.white)),
+        title: const Text('Perfil del Doctor',
+            style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
             icon: const Icon(Icons.share, color: Colors.white),
             onPressed: () {
-              const String textToShare = 'Conoce al doctor en nuestra app de Consult Doctor';
+              const String textToShare =
+                  'Conoce al doctor en nuestra app de Consult Doctor';
               Share.share(textToShare);
             },
           ),
@@ -268,7 +273,10 @@ class _ViewDoctorState extends State<ViewDoctor> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Icon(Icons.send, color: Colors.white,),
+                child: const Icon(
+                  Icons.send,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),
@@ -340,9 +348,19 @@ class _ViewDoctorState extends State<ViewDoctor> {
         children: [
           Expanded(
             child: ElevatedButton.icon(
-              onPressed: () => _showCallDialog(),
-              icon: const Icon(Icons.phone, color: Colors.white),
-              label: const Text('Llamar', style: TextStyle(color: Colors.white),),
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatScreen(),
+                  ),
+                )
+              },
+              icon: const Icon(Icons.sms, color: Colors.white),
+              label: const Text(
+                'Mandar mensaje',
+                style: TextStyle(color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue.shade600,
                 padding: const EdgeInsets.symmetric(vertical: 15),
@@ -359,12 +377,21 @@ class _ViewDoctorState extends State<ViewDoctor> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChatScreen(doctor: "doctor.nombre ",),
+                    builder: (context) => DoctorAppointmentForm(
+                      doctor: Doctor(
+                          name: 'Dr. Antonio Cocom',
+                          specialty: 'Cardiología',
+                          imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTrj6pAjkMSB9_yKlcHC6gMchHPJwtzsbQbg&s',
+                          availableDays: ['lunes', 'miércoles', 'viernes']),
+                    ),
                   ),
                 )
               },
               icon: const Icon(Icons.calendar_today, color: Colors.white),
-              label: const Text('Sacar Cita', style: TextStyle(color: Colors.white),),
+              label: const Text(
+                'Sacar Cita',
+                style: TextStyle(color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepOrangeAccent,
                 padding: const EdgeInsets.symmetric(vertical: 15),
@@ -396,7 +423,8 @@ class _ViewDoctorState extends State<ViewDoctor> {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Llamada aceptada. Se le notificará cuando el doctor esté disponible.'),
+                    content: Text(
+                        'Llamada aceptada. Se le notificará cuando el doctor esté disponible.'),
                     duration: Duration(seconds: 3),
                   ),
                 );

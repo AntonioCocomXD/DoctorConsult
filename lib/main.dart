@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:consult_doctor/auth/login.dart';
 import 'package:consult_doctor/consultDoctor/home/home.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('es', null);
   runApp(const MyApp());
 }
 
@@ -39,4 +41,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

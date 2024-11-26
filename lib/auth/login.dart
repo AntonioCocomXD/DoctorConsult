@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     final provider = await SharedPreferences.getInstance();
 
     setState(() => _isLoading = true);
-    final url = Uri.parse('http://192.168.1.78:3000/consultDoctor/api/auth/login');
+    final url = Uri.parse('http://192.168.1.75:3000/consultDoctor/api/auth/login');
 
     try {
       final response = await http.post(
@@ -45,7 +45,10 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.green,
         ));
         Future.delayed(const Duration(seconds: 1), () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyHomePage()));
+          Navigator.pushAndRemoveUntil(context, 
+            MaterialPageRoute(builder: (context) => const MyHomePage()), 
+            (route) => false
+          );
         }); 
       } else {
         final responseData = jsonDecode(response.body);

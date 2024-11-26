@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<List<DoctorDtoOther>> getDoctorData() async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.78:3000/consultDoctor/api/doctores"),
+    Uri.parse("http://192.168.1.75:3000/consultDoctor/api/doctores"),
     headers: {'Content-Type': 'application/json'},
   );
   final List<DoctorDtoOther> doctores = [];
@@ -34,7 +34,7 @@ Future<List<DoctorDtoOther>> getDoctorData() async {
 Future<List<UserDto>> getUserData() async {
   final provider = await SharedPreferences.getInstance();
   final response = await http.get(
-    Uri.parse("http://192.168.1.78:3000/consultDoctor/api/usuarios"),
+    Uri.parse("http://192.168.1.75:3000/consultDoctor/api/usuarios"),
     headers: {'Content-Type': 'application/json'},
   );
   final List<UserDto> usuarios = [];
@@ -64,7 +64,7 @@ Future<List<UserDto>> getUserData() async {
 
 Future<DoctorDtoOther> getOneDoctorData(int id) async {
   final response = await http.get(
-    Uri.parse("http://192.168.1.78:3000/consultDoctor/api/doctores/$id"),
+    Uri.parse("http://192.168.1.75:3000/consultDoctor/api/doctores/$id"),
     headers: {'Content-Type': 'application/json'},
   );
   final List<DoctorDtoOther> doctores = [];

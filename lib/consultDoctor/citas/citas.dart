@@ -33,7 +33,7 @@ class DoctorDto {
   });
   static Future<DoctorDto> getDoctorForId(int id) async {
     final response = await http.get(
-      Uri.parse("http://192.168.1.75:3000/consultDoctor/api/doctores/$id"),
+      Uri.parse("http://localhost:3000/consultDoctor/api/doctores/$id"),
       headers: {'Content-Type': 'application/json'},
     );
 
@@ -54,7 +54,7 @@ class DoctorDto {
 Future<List<CitasDto>> getOneCitas() async {
   final provider = await SharedPreferences.getInstance();
   final response = await http.get(
-    Uri.parse("http://192.168.1.75:3000/consultDoctor/api/citas"),
+    Uri.parse("http://localhost:3000/consultDoctor/api/citas"),
     headers: {'Content-Type': 'application/json'},
   );
   final List<CitasDto> citas = [];

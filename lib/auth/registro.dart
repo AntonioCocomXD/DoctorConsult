@@ -26,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
       });
 
       var url =
-          Uri.parse('http://192.168.1.75:3000/consultDoctor/api/auth/register');
+          Uri.parse('http://localhost:3000/consultDoctor/api/auth/register');
       var response = await http.post(
         url,
         headers: {"Content-Type": "application/json"},

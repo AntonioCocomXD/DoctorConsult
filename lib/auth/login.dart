@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     final provider = await SharedPreferences.getInstance();
 
     setState(() => _isLoading = true);
-    final url = Uri.parse('http://192.168.1.75:3000/consultDoctor/api/auth/login');
+    final url = Uri.parse('http://localhost:3000/consultDoctor/api/auth/login');
 
     try {
       final response = await http.post(
